@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Spring Cloud 组件简要记录 | 点墨苍穹</title><meta name="author" content="Will"><meta name="copyright" content="Will"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.注册中心Nacos&#x2F;Eureka Eureka:1234AP  服务注册中心 2.0后停止开源短连接,定时发送和服务进行联系服务异常剔除时间最长可能需要3分钟 30s心跳+90s剔除 +60s下线  Nacos:1234CP&#x2F;AP ephemeral&#x3D;true服务注册中心, 配置中心, 健康检查, 负载君合,故障恢复,动态配置长连接,netty和服务直接连接心跳5s+15s设置不健康">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud 组件简要记录">
+<meta property="og:url" content="http://example.com/2025/02/11/Spring-Cloud-%E7%BB%84%E4%BB%B6%E7%AE%80%E8%A6%81%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="点墨苍穹">
+<meta property="og:description" content="1.注册中心Nacos&#x2F;Eureka Eureka:1234AP  服务注册中心 2.0后停止开源短连接,定时发送和服务进行联系服务异常剔除时间最长可能需要3分钟 30s心跳+90s剔除 +60s下线  Nacos:1234CP&#x2F;AP ephemeral&#x3D;true服务注册中心, 配置中心, 健康检查, 负载君合,故障恢复,动态配置长连接,netty和服务直接连接心跳5s+15s设置不健康">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-02-11T19:21:00.000Z">
+<meta property="article:modified_time" content="2025-03-08T01:27:24.481Z">
+<meta property="article:author" content="Will">
+<meta property="article:tag" content="Spring Cloud ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Spring Cloud 组件简要记录",
+  "url": "http://example.com/2025/02/11/Spring-Cloud-%E7%BB%84%E4%BB%B6%E7%AE%80%E8%A6%81%E8%AE%B0%E5%BD%95/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-02-11T19:21:00.000Z",
+  "dateModified": "2025-03-08T01:27:24.481Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Will",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/02/11/Spring-Cloud-%E7%BB%84%E4%BB%B6%E7%AE%80%E8%A6%81%E8%AE%B0%E5%BD%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Spring Cloud 组件简要记录',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">点墨苍穹</span></a><a class="nav-page-title" href="/"><span class="site-name">Spring Cloud 组件简要记录</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Spring Cloud 组件简要记录</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-02-11T19:21:00.000Z" title="发表于 2025-02-11 19:21:00">2025-02-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-08T01:27:24.481Z" title="更新于 2025-03-08 01:27:24">2025-03-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">928</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="1-注册中心"><a href="#1-注册中心" class="headerlink" title="1.注册中心"></a>1.注册中心</h2><p>Nacos&#x2F;Eureka</p>
+<h3 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka:"></a>Eureka:</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AP  </span><br><span class="line">服务注册中心 2.0后停止开源</span><br><span class="line">短连接,定时发送和服务进行联系</span><br><span class="line">服务异常剔除时间最长可能需要3分钟 30s心跳+90s剔除 +60s下线</span><br></pre></td></tr></table></figure>
+
+<h3 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos:"></a>Nacos:</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CP/AP ephemeral=true</span><br><span class="line">服务注册中心, 配置中心, 健康检查, 负载君合,故障恢复,动态配置</span><br><span class="line">长连接,netty和服务直接连接</span><br><span class="line">心跳5s+15s设置不健康+30s剔除 </span><br></pre></td></tr></table></figure>
+
+<h2 id="2-实现远程调用的方式"><a href="#2-实现远程调用的方式" class="headerlink" title="2.实现远程调用的方式"></a>2.<strong>实现远程调用的方式</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Http接口（web接口、RestTemplate+Okhttp）、Feign、RPC调用（Dubbo、Socket编程）、Webservice。</span><br></pre></td></tr></table></figure>
+
+<h3 id="Feign和OpenFeign"><a href="#Feign和OpenFeign" class="headerlink" title="Feign和OpenFeign"></a>Feign和OpenFeign</h3><h4 id="Feign"><a href="#Feign" class="headerlink" title="Feign:"></a>Feign:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Feign集成了Ribbon、RestTemplate实现了负载均衡的执行Http调用  停止迭代</span><br></pre></td></tr></table></figure>
+
+<h4 id="OpenFeign"><a href="#OpenFeign" class="headerlink" title="OpenFeign:"></a>OpenFeign:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">OpenFeign是springcloud在Feign的基础上支持了SpringMVC的注解,通过动态代理的方式产生实现类，实现类中做负载均衡并调用其他服务</span><br><span class="line">OpenFeign:</span><br><span class="line">使用ApacheHttpClient</span><br><span class="line">使用OkHttp</span><br><span class="line">代替URLConection</span><br><span class="line">开启g-zip优化</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dubbo和Feign"><a href="#Dubbo和Feign" class="headerlink" title="Dubbo和Feign"></a>Dubbo和Feign</h3><h4 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo:"></a>Dubbo:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">RPC: 多协议:dubbo,rmi,http,redis,使用netty,长连接,高并发稳定,方法级服务粒度,可异步调用</span><br><span class="line">随机,权重,最少活跃,一致性hash</span><br><span class="line">容错支持 </span><br><span class="line">failOver 默认 会做负载均衡</span><br><span class="line">failFast 快速失败 不重试</span><br><span class="line">Failsafe 忽略异常,不关心是否调用成功</span><br><span class="line">FailBack 自动记录失败队列,定时重试,适合异步执行</span><br><span class="line">BroadCast 广播</span><br><span class="line">Forking 同时调用多个服务</span><br><span class="line">可以设置retry重试和超时设置</span><br></pre></td></tr></table></figure>
+
+<h4 id="Feign-1"><a href="#Feign-1" class="headerlink" title="Feign:"></a>Feign:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Http/REST 实现,Http接口级服务粒度,对外暴漏http接口,短连接,轻量级</span><br><span class="line">默认使用Ribbon负载均衡 随机,规则轮训,空闲策略,响应时间策略</span><br><span class="line">默认使用Hystix做熔断提供服务降级,服务熔断,依赖隔离,监控</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-熔断隔离限流"><a href="#3-熔断隔离限流" class="headerlink" title="3.熔断隔离限流"></a>3.熔断隔离限流</h2><h3 id="Hystrix和Sentinel"><a href="#Hystrix和Sentinel" class="headerlink" title="Hystrix和Sentinel"></a>Hystrix和Sentinel</h3><h4 id="Hystrix"><a href="#Hystrix" class="headerlink" title="Hystrix:"></a>Hystrix:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">熔断和隔离位主的容错机制,快速失败, 提供failback机制</span><br><span class="line">熔断策略:失败比率</span><br><span class="line">隔离策略:并发数</span><br><span class="line">限流:基于qps </span><br></pre></td></tr></table></figure>
+
+<h4 id="Sentinel"><a href="#Sentinel" class="headerlink" title="Sentinel:"></a>Sentinel:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">多样化流量控制,实时监测,系统负载保护,熔断降级| 轻量级,高性能,流量控制,常用的流量整形策略:直接拒绝,慢启动预热模式,匀速器模式:Leaky Bucket 漏桶算法</span><br><span class="line">熔断策略: 响应时间或者失败比率</span><br><span class="line">隔离策略:线程池隔离和信号量隔离</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-负载均衡"><a href="#4-负载均衡" class="headerlink" title="4.负载均衡"></a>4.负载均衡</h2><h3 id="Nginx-Ribbon-LoadBalance"><a href="#Nginx-Ribbon-LoadBalance" class="headerlink" title="Nginx,Ribbon,LoadBalance"></a>Nginx,Ribbon,LoadBalance</h3><h4 id="Ribbon"><a href="#Ribbon" class="headerlink" title="Ribbon"></a>Ribbon</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">客户端负载均衡工具, 提供 均衡算法和服务调用  本地负载均衡 缓存在jvm本地, 实现rpc调用</span><br><span class="line">策略IRule: 轮询RoundRobinRule 随机RandomRule RetryRule轮询重试 ,BestAvailableRule并发最小服务,AvailablilityFiteringRule,过滤故障并发最小,ZoneAvoidanceRule 默认 根据响应时间加权</span><br><span class="line">工作流程:</span><br><span class="line">从注册中心获取服务列表</span><br><span class="line">根据用户指定的策略，找到目标服务提供者</span><br><span class="line">通过Feign或者OpenFeign，Web客户端调用工具完成用户请求 </span><br></pre></td></tr></table></figure>
+
+<h4 id="LoadBalance"><a href="#LoadBalance" class="headerlink" title="LoadBalance"></a>LoadBalance</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ribbon停更,使用loadBalance 均摊 高可用HA    默认轮询 Hoxton.SR10 增加随机</span><br></pre></td></tr></table></figure>
+
+<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">服务端负载均衡工具,客户端请求全部通过nginx转发  </span><br><span class="line">用途:</span><br><span class="line">1.静态http服务器 2.反向代理服务器 3.负载均衡 4.正向代理 5.解决跨域问题 6.限流</span><br><span class="line"></span><br><span class="line">负载均衡算法:</span><br><span class="line">轮询(默认),</span><br><span class="line">权重(weight),</span><br><span class="line">ip_hash(根据ip分配方式) </span><br><span class="line">least_conn(最少连接),</span><br><span class="line">fair(第三方,响应时间方式) </span><br><span class="line">url_hash(根据url方式)</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-网关"><a href="#5-网关" class="headerlink" title="5.网关"></a>5.网关</h2><h3 id="Zuul和Gateway"><a href="#Zuul和Gateway" class="headerlink" title="Zuul和Gateway"></a>Zuul和Gateway</h3><h4 id="Zuul"><a href="#Zuul" class="headerlink" title="Zuul:"></a>Zuul:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">阻塞api,不支持长连接 底层servlet 处理http请求 同步 没有实现限流和复杂均衡 2.0也使用netty非阻塞</span><br></pre></td></tr></table></figure>
+
+<h4 id="Gateway"><a href="#Gateway" class="headerlink" title="Gateway:"></a>Gateway:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">依赖webFlux 底层环境netty 支持异步 实现限流和复杂均衡 反向代理,鉴权,流控,熔断,日志监控,路由转发</span><br><span class="line">三大核心:</span><br><span class="line">Route:由id,uri,predicate组成 </span><br><span class="line">Predicate: 匹配路由</span><br><span class="line">Filter:过滤器</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Will</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/02/11/Spring-Cloud-%E7%BB%84%E4%BB%B6%E7%AE%80%E8%A6%81%E8%AE%B0%E5%BD%95/">http://example.com/2025/02/11/Spring-Cloud-%E7%BB%84%E4%BB%B6%E7%AE%80%E8%A6%81%E8%AE%B0%E5%BD%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">点墨苍穹</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Spring-Cloud/">Spring Cloud </a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/02/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/" title="分布式事务简单记录"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">分布式事务简单记录</div></div><div class="info-2"><div class="info-item-1">事务事务具有 4 个属性：原子性、一致性、隔离性、持久性。这四个属性通常称为 ACID 特性。 1234- Atomicity（原子性）：一个事务中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被恢复到事务开始前的状态，就像这个事务从来没有执行过一样。- Consistency（一致性）：在事务开始前、进行中、结束后，数据库的完整性没有被破坏。完整性包括外键约束、应用定义的等约束不会被破坏。- Isolation（隔离性）：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。- Durability（持久性）：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。 分布式事务会部分遵循 ACID 规范： 1234-     原子性：严格遵循-     一致性：事务完成后的一致性严格遵循；事务中的一致性可适当放宽-     隔离性：并行事务间不可影响；事务中间结果可见性允许安全放宽-    ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Will</div><div class="author-info-description">一个懒人,躺平但挣扎,平庸但不屈.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kubility"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kubility" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="toc-number">1.</span> <span class="toc-text">1.注册中心</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Eureka"><span class="toc-number">1.1.</span> <span class="toc-text">Eureka:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nacos"><span class="toc-number">1.2.</span> <span class="toc-text">Nacos:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">2.实现远程调用的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Feign%E5%92%8COpenFeign"><span class="toc-number">2.1.</span> <span class="toc-text">Feign和OpenFeign</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Feign"><span class="toc-number">2.1.1.</span> <span class="toc-text">Feign:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OpenFeign"><span class="toc-number">2.1.2.</span> <span class="toc-text">OpenFeign:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dubbo%E5%92%8CFeign"><span class="toc-number">2.2.</span> <span class="toc-text">Dubbo和Feign</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Dubbo"><span class="toc-number">2.2.1.</span> <span class="toc-text">Dubbo:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Feign-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">Feign:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%86%94%E6%96%AD%E9%9A%94%E7%A6%BB%E9%99%90%E6%B5%81"><span class="toc-number">3.</span> <span class="toc-text">3.熔断隔离限流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hystrix%E5%92%8CSentinel"><span class="toc-number">3.1.</span> <span class="toc-text">Hystrix和Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hystrix"><span class="toc-number">3.1.1.</span> <span class="toc-text">Hystrix:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Sentinel"><span class="toc-number">3.1.2.</span> <span class="toc-text">Sentinel:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">4.</span> <span class="toc-text">4.负载均衡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx-Ribbon-LoadBalance"><span class="toc-number">4.1.</span> <span class="toc-text">Nginx,Ribbon,LoadBalance</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Ribbon"><span class="toc-number">4.1.1.</span> <span class="toc-text">Ribbon</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LoadBalance"><span class="toc-number">4.1.2.</span> <span class="toc-text">LoadBalance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nginx"><span class="toc-number">4.1.3.</span> <span class="toc-text">Nginx</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%BD%91%E5%85%B3"><span class="toc-number">5.</span> <span class="toc-text">5.网关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Zuul%E5%92%8CGateway"><span class="toc-number">5.1.</span> <span class="toc-text">Zuul和Gateway</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Zuul"><span class="toc-number">5.1.1.</span> <span class="toc-text">Zuul:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gateway"><span class="toc-number">5.1.2.</span> <span class="toc-text">Gateway:</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/Spring-Cloud-%E7%BB%84%E4%BB%B6%E7%AE%80%E8%A6%81%E8%AE%B0%E5%BD%95/" title="Spring Cloud 组件简要记录">Spring Cloud 组件简要记录</a><time datetime="2025-02-11T19:21:00.000Z" title="发表于 2025-02-11 19:21:00">2025-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/" title="分布式事务简单记录">分布式事务简单记录</a><time datetime="2025-02-11T19:18:00.000Z" title="发表于 2025-02-11 19:18:00">2025-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/%E9%94%81%E5%88%86%E7%B1%BB/" title="锁分类">锁分类</a><time datetime="2025-02-11T19:04:00.000Z" title="发表于 2025-02-11 19:04:00">2025-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/Docker%E7%AE%80%E6%98%8E%E6%A6%82%E8%A6%81/" title="Docker简明概要">Docker简明概要</a><time datetime="2025-02-11T19:03:00.000Z" title="发表于 2025-02-11 19:03:00">2025-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/elasticsearch%E5%85%A5%E9%97%A8%E8%AE%B0%E5%BD%95/" title="elasticsearch入门记录">elasticsearch入门记录</a><time datetime="2025-02-11T19:00:00.000Z" title="发表于 2025-02-11 19:00:00">2025-02-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Will</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/%5Bobject%20Object%5D"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

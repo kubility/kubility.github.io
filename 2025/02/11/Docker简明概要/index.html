@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Docker简明概要 | 点墨苍穹</title><meta name="author" content="Will"><meta name="copyright" content="Will"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Docker 常用命令镜像命令1. docker images 查看镜像12(docker images -a) -a, --all # 显示所有镜像 (docker images -q) -q, --quiet # 仅显示镜像id  2. docker serach 搜索镜像  1docker search mysql --filter&#x3D;STARS&#x3D;5000 搜索stars大于5000的 3.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker简明概要">
+<meta property="og:url" content="http://example.com/2025/02/11/Docker%E7%AE%80%E6%98%8E%E6%A6%82%E8%A6%81/index.html">
+<meta property="og:site_name" content="点墨苍穹">
+<meta property="og:description" content="Docker 常用命令镜像命令1. docker images 查看镜像12(docker images -a) -a, --all # 显示所有镜像 (docker images -q) -q, --quiet # 仅显示镜像id  2. docker serach 搜索镜像  1docker search mysql --filter&#x3D;STARS&#x3D;5000 搜索stars大于5000的 3.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-02-11T19:03:00.000Z">
+<meta property="article:modified_time" content="2025-03-08T01:27:24.481Z">
+<meta property="article:author" content="Will">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Docker简明概要",
+  "url": "http://example.com/2025/02/11/Docker%E7%AE%80%E6%98%8E%E6%A6%82%E8%A6%81/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-02-11T19:03:00.000Z",
+  "dateModified": "2025-03-08T01:27:24.481Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Will",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/02/11/Docker%E7%AE%80%E6%98%8E%E6%A6%82%E8%A6%81/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Docker简明概要',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">点墨苍穹</span></a><a class="nav-page-title" href="/"><span class="site-name">Docker简明概要</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Docker简明概要</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-02-11T19:03:00.000Z" title="发表于 2025-02-11 19:03:00">2025-02-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-08T01:27:24.481Z" title="更新于 2025-03-08 01:27:24">2025-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/docker/">docker</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Docker-常用命令"><a href="#Docker-常用命令" class="headerlink" title="Docker 常用命令"></a>Docker 常用命令</h1><h2 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h2><h3 id="1-docker-images-查看镜像"><a href="#1-docker-images-查看镜像" class="headerlink" title="1. docker images 查看镜像"></a>1. docker images 查看镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(docker images -a) -a, --all # 显示所有镜像 </span><br><span class="line">(docker images -q) -q, --quiet # 仅显示镜像id </span><br></pre></td></tr></table></figure>
+<h3 id="2-docker-serach-搜索镜像"><a href="#2-docker-serach-搜索镜像" class="headerlink" title="2. docker serach 搜索镜像"></a>2. docker serach 搜索镜像</h3>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql --filter=STARS=5000 搜索stars大于5000的</span><br></pre></td></tr></table></figure>
+<h3 id="3-docker-pull-镜像-tag"><a href="#3-docker-pull-镜像-tag" class="headerlink" title="3. docker pull 镜像[:tag]"></a>3. docker pull 镜像[:tag]</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果不写tag，默认就是latest，最新的版本</span><br></pre></td></tr></table></figure>
+<h3 id="4-docker-rmi-镜像id"><a href="#4-docker-rmi-镜像id" class="headerlink" title="4. docker rmi 镜像id"></a>4. docker rmi 镜像id</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker rmi -f 镜像id</span><br><span class="line">docker rmi -f 镜像id 镜像id</span><br><span class="line">docker rmi -f $(docker images -aq)删除全部镜像</span><br></pre></td></tr></table></figure>
+<h3 id="提交镜像"><a href="#提交镜像" class="headerlink" title="提交镜像"></a>提交镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m=&quot;提交的描述信息&quot; -a=&quot;作者&quot; 容器id 目标镜像名:[TAG]</span><br></pre></td></tr></table></figure>
+
+<h2 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h2><h3 id="新建容器并启动"><a href="#新建容器并启动" class="headerlink" title="新建容器并启动"></a>新建容器并启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br><span class="line">docker run -d -p 80:80 nginx  -d 后台 -p 端口映射</span><br><span class="line">docker run -it centos /bin/bash 运行并进入容器内部 </span><br><span class="line">docker exec -it nginx /bin/bash  进入当前正在运行的容器</span><br><span class="line">docker attach 容器Id</span><br><span class="line"># docker exec        # 进入容器后开启一个新的终端，可以再里面操作（常用）</span><br><span class="line"># docker attach      # 进入容器正在执行的终端，不会启动新的进程。</span><br></pre></td></tr></table></figure>
+<h3 id="列出所有运行的容器"><a href="#列出所有运行的容器" class="headerlink" title="列出所有运行的容器"></a>列出所有运行的容器</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps [-a]</span><br></pre></td></tr></table></figure>
+<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm 容器Id </span><br></pre></td></tr></table></figure>
+
+<h3 id="启动和停止容器"><a href="#启动和停止容器" class="headerlink" title="启动和停止容器"></a>启动和停止容器</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器id        # 启动容器</span><br><span class="line">docker restart 容器id    # 重启容器</span><br><span class="line">docker stop 容器id        # 停止当前正在运行的容器</span><br><span class="line">docker kill 容器id        # 强制停止当前容器</span><br></pre></td></tr></table></figure>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><h3 id="容器日志查看"><a href="#容器日志查看" class="headerlink" title="容器日志查看"></a>容器日志查看</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -tf -n 容器id</span><br></pre></td></tr></table></figure>
+<h3 id="查看容器中进程的信息"><a href="#查看容器中进程的信息" class="headerlink" title="查看容器中进程的信息"></a>查看容器中进程的信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker top 容器id</span><br></pre></td></tr></table></figure>
+<h3 id="查看镜像的元数据"><a href="#查看镜像的元数据" class="headerlink" title="查看镜像的元数据"></a>查看镜像的元数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 容器id</span><br></pre></td></tr></table></figure>
+
+<h3 id="从容器内拷贝文件到宿主机"><a href="#从容器内拷贝文件到宿主机" class="headerlink" title="从容器内拷贝文件到宿主机"></a>从容器内拷贝文件到宿主机</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp 容器id:容器内路径 目的主机的路径</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据卷的管理"><a href="#数据卷的管理" class="headerlink" title="数据卷的管理"></a>数据卷的管理</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 -v /data:/usr/share/nginx/html nginx # 创建卷</span><br><span class="line">容器目录:/usr/share/nginx/html</span><br><span class="line">主机目录:/data</span><br><span class="line"></span><br><span class="line">docker volume ls  # 查看卷</span><br><span class="line">docker volume inspect 卷名 查看卷路径</span><br><span class="line">所有的docker容器内的卷，没有指定目录的情况下都是在&quot;/var/lib/docker/volumes/xxxx/_data&quot;（xxxx是卷名）</span><br><span class="line"># 如何确定是具名挂载，还是匿名挂载，还是指定路径挂载</span><br><span class="line">-v 容器内的路径                # 匿名挂载</span><br><span class="line">-v 卷名:容器内的路径        # 具名挂载</span><br><span class="line">-v /宿主机路径:容器内路径    # 指定路径挂载</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><h3 id="dockerfile常用指令："><a href="#dockerfile常用指令：" class="headerlink" title="dockerfile常用指令："></a>dockerfile常用指令：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">FROM 这个镜像的妈妈是谁？（指定基础镜像）</span><br><span class="line"></span><br><span class="line">MAINTAINER 告诉别人，谁负责养它？（指定维护者信息，可以没有）</span><br><span class="line"></span><br><span class="line">RUN 你想让它干啥（在命令前面加上RUN即可）</span><br><span class="line"></span><br><span class="line">ADD 给它点创业资金（COPY文件，会自动解压）</span><br><span class="line"></span><br><span class="line">WORKDIR 我是cd,今天刚化了妆（设置当前工作目录）</span><br><span class="line"></span><br><span class="line">VOLUME 给它一个存放行李的地方（设置卷，挂载主机目录）</span><br><span class="line"></span><br><span class="line">EXPOSE 它要打开的门是啥（指定对外的端口）</span><br><span class="line"></span><br><span class="line">CMD 奔跑吧，兄弟！（指定容器启动后的要干的事情,只有最后一个会生效，可被替代）</span><br><span class="line">ENTRYPOINT    指定这个容器启动的时候要运行的命令，可以追加命令</span><br><span class="line">ONBUILD       当构建一个被继承DockerFile这个时候就会运行ONBUILD的指令。触发指令。</span><br><span class="line">COPY          类似ADD，将我们文件拷贝到镜像中</span><br><span class="line">ENV           构建的时候设置环境变量！</span><br></pre></td></tr></table></figure>
+<h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker image build -t 镜像 .</span><br><span class="line">-t 打标签,.表示当前路径.执行必须在Dockerfile目录下执行</span><br></pre></td></tr></table></figure>
+<h2 id="Docker-网路"><a href="#Docker-网路" class="headerlink" title="Docker 网路"></a>Docker 网路</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">docker run  -it --network none busybox:latest  /bin/sh</span><br><span class="line">    --不为容器配置任何网络功能，没有网络 --net=none</span><br><span class="line">docker run  -it --network container:containerID  busybox:latest  /bin/sh</span><br><span class="line">    --与另一个运行中的容器共享Network Namespace，--net=container:containerID</span><br><span class="line">docker run  -it --network host  busybox:latest  /bin/sh</span><br><span class="line">    --与主机共享Network Namespace，--net=host</span><br><span class="line">--自定义网络</span><br><span class="line">docker network create --driver bridge --subnet 192.168.0.0/16 --gateway 192.168.0.1 mynet</span><br><span class="line">--查看网络</span><br><span class="line">docker network ls</span><br><span class="line">--查看网络容器信息</span><br><span class="line">docker network inspect mynet</span><br><span class="line">--连接打通网络</span><br><span class="line">docker network connect mynet tomcat01</span><br><span class="line"># 连通之后就是将tomcat01放到了mynet网络下</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><p>一个典型的 Docker Compose 配置文件具有以下基本结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;3.9&#x27;</span><br><span class="line">services:</span><br><span class="line">  service1:</span><br><span class="line">    image: image1:tag</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;8080:80&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - ./data:/data</span><br><span class="line">    environment:</span><br><span class="line">      - ENV_VAR=value</span><br><span class="line"></span><br><span class="line">  service2:</span><br><span class="line">    image: image2:tag</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;8081:80&quot;</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>详细参数说明</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- version：指定 Docker Compose 配置文件的语法版本。</span><br><span class="line">- services：定义的容器服务列表。</span><br><span class="line">- serviceX：服务名称，可以根据需求自定义。</span><br><span class="line">- image：容器镜像名称和标签。</span><br><span class="line">- ports：端口映射配置。</span><br><span class="line">- volumes：挂载卷配置。</span><br><span class="line">- environment：环境变量设置。</span><br></pre></td></tr></table></figure>
+<h3 id="Docker-Compose-常用命令"><a href="#Docker-Compose-常用命令" class="headerlink" title="Docker Compose 常用命令"></a>Docker Compose 常用命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- docker-compose up：构建（如果不存在）并启动所有容器。</span><br><span class="line">- docker-compose down：停止并移除所有容器、网络和卷。</span><br><span class="line">- docker-compose start：启动已构建的容器。</span><br><span class="line">- docker-compose stop：停止已启动的容器。</span><br><span class="line">- docker-compose restart：重启已启动的容器。</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-容器时区"><a href="#Docker-容器时区" class="headerlink" title="Docker 容器时区"></a>Docker 容器时区</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker容器采用了UTC时间，默认为零时区，而我们主要用的是CST时间，北京时间，位于东八区。时区代号：Asia/Shanghai，这导致两者相差8小时</span><br></pre></td></tr></table></figure>
+<h3 id="进入容器执行命令"><a href="#进入容器执行命令" class="headerlink" title="进入容器执行命令"></a>进入容器执行命令</h3><p>1.方法一</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
+<p>2.方法二（在有timedatectl命令的情况下）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-timezone Asia/Shanghai</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Will</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/02/11/Docker%E7%AE%80%E6%98%8E%E6%A6%82%E8%A6%81/">http://example.com/2025/02/11/Docker%E7%AE%80%E6%98%8E%E6%A6%82%E8%A6%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">点墨苍穹</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/02/11/elasticsearch%E5%85%A5%E9%97%A8%E8%AE%B0%E5%BD%95/" title="elasticsearch入门记录"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">elasticsearch入门记录</div></div><div class="info-2"><div class="info-item-1">1.Docker 安装elasticsearch1.1.创建网络1docker network create elastic 1.2.创建elasticsearch1234567891011121314docker run -d \--restart=always \--name elasticsearch \--network elastic \-p 9388:9200 \-p 9389:9300 \--privileged \-v /opt/elasticsearch/data:/usr/share/elasticsearch/data \-v /opt/elasticsearch/plugins:/usr/share/elasticsearch/plugins \-v /opt/elasticsearch/config:/usr/share/Elasticsearch/config \-e &quot;discovery.type=single-node&quot; \-e &quot;ES_JAVA_OPTS=-Xms256m -Xmx512m&quot; \-e...</div></div></div></a><a class="pagination-related" href="/2025/02/11/%E9%94%81%E5%88%86%E7%B1%BB/" title="锁分类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">锁分类</div></div><div class="info-2"><div class="info-item-1"> 基于锁的获取与释放方式分类隐式锁(内置锁或自动锁)1通过synchronized关键字实现的一种线程同步机制,当一个线程进入被synchronized修饰的方法或代码块时，它会自动获得对象级别的锁，退出该方法或代码块时则会自动释放这把锁。 隐式锁的实现机制主要包括以下两种类型12341.互斥锁   java虚拟机对synchronized 关键字处理的底层实现中,当锁竞争激烈且必须升级重量级锁时,会利用操作系统互斥量机制确保在同一时刻仅允许一个线程持有锁,从而实现严格的线程互斥控制2.内部锁或监视器锁  通过使用synchronized关键字便捷地管理和操作相应对象的监视器锁并在执行完毕后自动释放，这一过程对用户透明，故被称为隐式锁。每个Java对象均与一个监视器锁关联，以此来协调对该对象状态访问的并发控制 隐式锁适用场景123- 简洁易用,确保了线程安全,避免了竞态条件,异常处理下自动释放.- 锁定颗粒通常是对象级别,相对显示锁不灵活,高并发下可能引起锁争用,导致性能下级.-...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Will</div><div class="author-info-description">一个懒人,躺平但挣扎,平庸但不屈.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kubility"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kubility" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">Docker 常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">镜像命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-docker-images-%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. docker images 查看镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-docker-serach-%E6%90%9C%E7%B4%A2%E9%95%9C%E5%83%8F"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. docker serach 搜索镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-docker-pull-%E9%95%9C%E5%83%8F-tag"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. docker pull 镜像[:tag]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-docker-rmi-%E9%95%9C%E5%83%8Fid"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. docker rmi 镜像id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E9%95%9C%E5%83%8F"><span class="toc-number">1.1.5.</span> <span class="toc-text">提交镜像</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.</span> <span class="toc-text">容器命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B9%B6%E5%90%AF%E5%8A%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">新建容器并启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">列出所有运行的容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.3.</span> <span class="toc-text">删除容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.4.</span> <span class="toc-text">启动和停止容器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">其他常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">容器日志查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E4%B8%AD%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-number">1.3.2.</span> <span class="toc-text">查看容器中进程的信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-number">1.3.3.</span> <span class="toc-text">查看镜像的元数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E5%AE%B9%E5%99%A8%E5%86%85%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6%E5%88%B0%E5%AE%BF%E4%B8%BB%E6%9C%BA"><span class="toc-number">1.3.4.</span> <span class="toc-text">从容器内拷贝文件到宿主机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8D%B7%E7%9A%84%E7%AE%A1%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">数据卷的管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dockerfile"><span class="toc-number">1.5.</span> <span class="toc-text">Dockerfile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dockerfile%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%EF%BC%9A"><span class="toc-number">1.5.1.</span> <span class="toc-text">dockerfile常用指令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F"><span class="toc-number">1.5.2.</span> <span class="toc-text">构建镜像</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-%E7%BD%91%E8%B7%AF"><span class="toc-number">1.6.</span> <span class="toc-text">Docker 网路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-Compose"><span class="toc-number">1.7.</span> <span class="toc-text">Docker Compose</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.7.1.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Compose-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.7.2.</span> <span class="toc-text">Docker Compose 常用命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA"><span class="toc-number">1.8.</span> <span class="toc-text">Docker 容器时区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="toc-number">1.8.1.</span> <span class="toc-text">进入容器执行命令</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/Spring-Cloud-%E7%BB%84%E4%BB%B6%E7%AE%80%E8%A6%81%E8%AE%B0%E5%BD%95/" title="Spring Cloud 组件简要记录">Spring Cloud 组件简要记录</a><time datetime="2025-02-11T19:21:00.000Z" title="发表于 2025-02-11 19:21:00">2025-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/" title="分布式事务简单记录">分布式事务简单记录</a><time datetime="2025-02-11T19:18:00.000Z" title="发表于 2025-02-11 19:18:00">2025-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/%E9%94%81%E5%88%86%E7%B1%BB/" title="锁分类">锁分类</a><time datetime="2025-02-11T19:04:00.000Z" title="发表于 2025-02-11 19:04:00">2025-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/Docker%E7%AE%80%E6%98%8E%E6%A6%82%E8%A6%81/" title="Docker简明概要">Docker简明概要</a><time datetime="2025-02-11T19:03:00.000Z" title="发表于 2025-02-11 19:03:00">2025-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/elasticsearch%E5%85%A5%E9%97%A8%E8%AE%B0%E5%BD%95/" title="elasticsearch入门记录">elasticsearch入门记录</a><time datetime="2025-02-11T19:00:00.000Z" title="发表于 2025-02-11 19:00:00">2025-02-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Will</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/%5Bobject%20Object%5D"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
